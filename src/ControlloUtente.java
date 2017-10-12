@@ -1,5 +1,3 @@
-package rentalCar;
-
 import java.util.Scanner;
 
 public class ControlloUtente {
