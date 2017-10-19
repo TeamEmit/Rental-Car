@@ -1,4 +1,4 @@
-package rentalCar;
+package Rental;
 import java.sql.*;
 
 public class GestioneDatabase {
