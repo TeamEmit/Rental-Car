@@ -2,51 +2,69 @@ import java.util.Scanner;
 
 public class ControlloUtente {
 
-	//Utente utente;
+	// Utente utente;
 	Scanner sc = new Scanner(System.in);
+	GestioneDatabase db = new GestioneDatabase();
+
 	public void signInUp() {
-		
-		System.out.println("Sei già registrato?\nSeleziona 1 per eseguire l'accesso, 2 per la registrazione");
+		System.out.println("Sei già registrato?\nSeleziona 1 per eseguire l'accesso, \n 2 per la registrazione");
 		int scelta = sc.nextInt();
-		
+
 		switch (scelta) {
 		case 1:
-			//metodo per eseguire l'accesso
+			accedi();
 			break;
 		case 2:
-			//metodo per la registrazione
+			registrazione();
 			break;
 		default:
-			System.out.println("scelta non contemplata");
+			System.out.println("Scelta non corretta. Riprova.");
 			signInUp();
 			break;
 		}
-		
-		
 	}
+
 	public void registrazione() {
-		String stringaDb = "prova";	//da sostituire con collegamento db
+		boolean emailEsistente = false;
 		
 		System.out.println("Inserire nome");
-			String nome = sc.nextLine();
-		System.out.println("Inserire Cognome");	
-			String cognome = sc.nextLine();
+		String nome = sc.nextLine();
+		System.out.println("Inserire Cognome");
+		String cognome = sc.nextLine();
 		System.out.println("Inserire e-mail");
-			String email = sc.nextLine();
+		String email = sc.nextLine();
 		System.out.println("Inserire password (Massimo 8 caratteri)");
-			String password = sc.nextLine();
+		String password = sc.nextLine();
 		System.out.println("Inserire carta di credito");
-			String cartaCredito = sc.nextLine();
-			//invia a db
-			if (email.equals(stringaDb)) {
-				
-				System.out.println("Utente già esistente, provare a fare l'accesso");
-				
-				
-			}
-			
+		String cartaCredito = sc.nextLine();
+
+		emailEsistente = db.controllaMail(email);
+
+		if (emailEsistente) {
+			System.out.println("Email già esistente, provare a fare l'accesso o cambia email.");
+			accedi();
+		} else {
+			db.inserisciUtente(email, nome, cognome, password, cartaCredito);
 		}
-		
+	}
 	
-	
+	public void accedi() {
+		boolean emailEsistente = false;
+
+		System.out.println("Inserire e-mail");
+		String email = sc.nextLine();
+		System.out.println("Inserire password (Massimo 8 caratteri)");
+		String password = sc.nextLine();
+
+		emailEsistente = db.controllaMail(email);
+
+		if (emailEsistente) {
+			System.out.println("Benvenuto");
+			db.mostraDatiUtente(); // metodo da creare
+		} else {
+			System.out.println("Email o password errate, riprova o prova a fare la registrazione.");
+			registrazione();
+		}
+
+	}
 }
