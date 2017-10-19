@@ -46,13 +46,14 @@ public class ControlloUtente {
 			signInUp();
 		} else {
 			db.inserisciUtente(email, nome, cognome, password, cartaCredito);
+			System.out.println("Benvenuto....");
 		}
 		
 		
 	}
 	
 	public void accedi() {
-
+		Utente utente;
 		System.out.println("Inserire e-mail");
 		String email = sc.nextLine();
 		System.out.println("Inserire password (Massimo 8 caratteri)");
@@ -61,8 +62,7 @@ public class ControlloUtente {
 		emailEsistente = db.controllaMail(email);
 
 		if (emailEsistente) {
-			System.out.println("Benvenuto");
-			db.mostraDatiUtente(); // metodo da creare
+			utente = db.restituisciDatiUtente(email); // metodo da creare
 		} else {
 			System.out.println("Email o password errate, riprova o prova a fare la registrazione.");
 			signInUp();

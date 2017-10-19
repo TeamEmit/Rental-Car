@@ -1,4 +1,4 @@
-package Rental;
+
 import java.sql.*;
 
 public class GestioneDatabase {
@@ -45,20 +45,50 @@ public class GestioneDatabase {
 		boolean giaRegistrato=false;
 		try {
 			Statement cmd = con.createStatement();
-			String query = "SELECT email FROM rent_a_car WHERE email='" + email + "'";
+			String query = "SELECT email FROM utente WHERE email='" + email + "'"; //Check
 			ResultSet res = cmd.executeQuery(query);
 			if(res.next())
 				giaRegistrato=true;
 			res.close();
 			cmd.close();
 			return giaRegistrato;
+			
 			}
 			catch (SQLException e) {
 				e.printStackTrace();
-				return giaRegistrato;
+				return false;
 			}
 	
 	
 	}
+	public Utente restituisciDatiUtente(String email) {
+		Utente utente;
+		String [] sUtente = new String[5];
+		int i = 0;
+		try {
+			Statement cmd = con.createStatement();
+			String query = "SELECT * FROM utente WHERE email='" + email + "'";
+			ResultSet res = cmd.executeQuery(query);
+			while (res.next()) {
+				
+				sUtente[i] = res.getString(i);
+				i++;	
+				//email, nome, cognome, pass, carta
+				
+			}
+			
+			utente = new Utente(sUtente[0], sUtente[1], sUtente[2], sUtente[3], sUtente[4]);
+			
+			System.out.printf("Benvenuto %s %s", utente.getNome(), utente.getCognome());
+			return utente;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+	
 	
 }
