@@ -5,7 +5,8 @@ public class ControlloUtente {
 	// Utente utente;
 	Scanner sc = new Scanner(System.in);
 	GestioneDatabase db = new GestioneDatabase();
-
+	boolean emailEsistente = false;
+	
 	public void signInUp() {
 		System.out.println("Sei già registrato?\nSeleziona 1 per eseguire l'accesso, \n 2 per la registrazione");
 		int scelta = sc.nextInt();
@@ -25,7 +26,7 @@ public class ControlloUtente {
 	}
 
 	public void registrazione() {
-		boolean emailEsistente = false;
+		
 		
 		System.out.println("Inserire nome");
 		String nome = sc.nextLine();
@@ -42,14 +43,15 @@ public class ControlloUtente {
 
 		if (emailEsistente) {
 			System.out.println("Email già esistente, provare a fare l'accesso o cambia email.");
-			accedi();
+			signInUp();
 		} else {
 			db.inserisciUtente(email, nome, cognome, password, cartaCredito);
 		}
+		
+		
 	}
 	
 	public void accedi() {
-		boolean emailEsistente = false;
 
 		System.out.println("Inserire e-mail");
 		String email = sc.nextLine();
@@ -63,7 +65,7 @@ public class ControlloUtente {
 			db.mostraDatiUtente(); // metodo da creare
 		} else {
 			System.out.println("Email o password errate, riprova o prova a fare la registrazione.");
-			registrazione();
+			signInUp();
 		}
 
 	}
