@@ -4,10 +4,12 @@ public class ControlloUtente {
 
 	// Utente utente;
 	Scanner sc = new Scanner(System.in);
-	GestioneDatabase db = new GestioneDatabase();
+	GestioneDatabase db;
 	boolean emailEsistente = false;
 	
 	public void signInUp() {
+		
+		db = new GestioneDatabase();
 		System.out.println("Sei già registrato?\nSeleziona 1 per eseguire l'accesso, \n 2 per la registrazione");
 		int scelta = sc.nextInt();
 
@@ -52,7 +54,7 @@ public class ControlloUtente {
 	
 	public void accedi() {
 		boolean emailEsistente = false;
-
+		sc.nextLine();
 		System.out.println("Inserire e-mail");
 		String email = sc.nextLine();
 		System.out.println("Inserire password (Massimo 8 caratteri)");

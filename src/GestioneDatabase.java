@@ -12,7 +12,7 @@ public class GestioneDatabase {
 		try {
 			String driver = "com.mysql.jdbc.Driver";
 			Class.forName(driver);
-			String url = "jdbc:mysql://127.0.0.1/rent_a_car";
+			String url = "jdbc:mysql://172.16.99.208/rent";
 			con = DriverManager.getConnection(url, "corsojava", "javapassword");
 		} catch (SQLException e) {
 			e.printStackTrace();
