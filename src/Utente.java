@@ -6,9 +6,9 @@ public class Utente {
 	private String cognome;
 	private String email;
 	private String password;
-	private int numCartaCredito;
+	private String numCartaCredito;
 	
-	public Utente(String nome, String cognome, String email, String password, int numCartaCredito) {
+	public Utente(String email, String nome, String cognome, String password, String numCartaCredito) {
 		
 		this.nome = nome;
 		this.cognome = cognome;
@@ -59,12 +59,12 @@ public class Utente {
 	}
 
 
-	public int getNumCartaCredito() {
+	public String getNumCartaCredito() {
 		return numCartaCredito;
 	}
 
 
-	public void setNumCartaCredito(int numCartaCredito) {
+	public void setNumCartaCredito(String numCartaCredito) {
 		this.numCartaCredito = numCartaCredito;
 	}
 	
