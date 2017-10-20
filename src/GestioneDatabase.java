@@ -75,8 +75,7 @@ public class GestioneDatabase {
 				sUtente[2] = res.getString("cognome");
 				sUtente[3] = res.getString("password");
 				sUtente[4] = res.getString("carta_di_credito");
-				
-				
+					
 			}
 			
 			utente = new Utente(sUtente[0], sUtente[1], sUtente[2], sUtente[3], sUtente[4]);
@@ -89,7 +88,42 @@ public class GestioneDatabase {
 			e.printStackTrace();
 			return null;
 		}
-		
+	
+	}
+	
+	public Veicolo noleggio(String email) { 
+		Veicolo v;
+		Statement cmd;
+		String marca=null, modello=null, targa=null, tipologia=null, colore=null;
+		try {
+			cmd = con.createStatement();
+			String query = "SELECT veicolo.colore, veicolo.Marca, veicolo.Modello, veicolo.Tipologia, veicolot.Targa \n" + 
+					"FROM `utente` \n" + 
+					"INNER JOIN utente_veicolo \n" + 
+					"	ON utente.Email=utente_veicolo.Email \n" + 
+					"INNER JOIN veicolo \n" + 
+					"    ON utente_veicolo.Targa=veicolo.Targa \n" + 
+					"WHERE utente.email = '" + email + "'";
+			ResultSet res = cmd.executeQuery(query);
+			while (res.next()) {
+				
+				marca = res.getString("marca");
+				modello = res.getString("modello");
+				targa = res.getString("targa");
+				tipologia = res.getString("tipologia");
+				colore = res.getString("colore");
+					
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(marca != null && modello != null && targa != null && tipologia != null && colore != null) {
+			v= new Veicolo(marca, modello, targa, tipologia, colore);
+			return v;
+		}
+		else
+			return null;
 	}
 	
 	

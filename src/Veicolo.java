@@ -20,6 +20,10 @@ public class Veicolo {
 	}
 
 
+	public Veicolo() {
+		super();
+	}
+
 	public Veicolo(String marca, String modello, String targa, String tipologia, String colore) {
 		
 		this.marca = marca;
