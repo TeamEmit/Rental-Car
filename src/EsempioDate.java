@@ -18,8 +18,8 @@ public class EsempioDate {
 		c.set(Calendar.DAY_OF_MONTH, 15);
 		
 		Date sept25 = c.getTime(); // creo un ogg Date passandogli la data inserita
-		Date oggi = new Date();  // per avere la data oggi, creo un ogg Date e richiamo 
-								 // il metodo getTime()
+		Date oggi = new Date();  /* per avere la data oggi creo un ogg Date e richiamo 
+								 il metodo getTime() */ 
 		
 		long diff = oggi.getTime() - sept25.getTime(); // diff in millisec
 		long diffInGG = diff / (1000 * 60 * 60 * 24); // diff in giorni

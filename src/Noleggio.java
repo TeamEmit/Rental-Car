@@ -14,7 +14,7 @@ public class Noleggio {
 	Veicolo veicoloUtente;
 	Scanner sc = new Scanner(System.in);
 	Date oggi = new Date();
-	
+
 	public void noleggio(Utente utente) {
 
 		System.out.println("Vuoi noleggiare? (1)\nVuoi restituire la macchina?(2)");
@@ -38,28 +38,24 @@ public class Noleggio {
 
 	public void restituisci() {
 		int scelta;
-		
+
 		if (listaVeicolo.size() > 1) {
-			
 			System.out.println("quale veicolo vuoi restituire?");
-			for (Veicolo v:listaVeicolo) {
+			for (Veicolo v : listaVeicolo) {
 				System.out.printf("La macchina con targa %s", v.getTarga());
 			}
-				scelta = sc.nextInt() - 1;
+			scelta = sc.nextInt() - 1;
 		} else {
 			scelta = 0;
 		}
-		
+
 		veicoloUtente = listaVeicolo.get(scelta);
-	
-		
-		
-		
-		
-		
-		
-		
-		
+		Date periodoInizio = veicoloUtente.getPeriodoInizio();
+		long durataNoleggio = oggi.getTime() - periodoInizio.getTime();
+		long durataNoleggioInGG = durataNoleggio / (1000 * 60 * 60 * 24);
+
+		System.out.println(durataNoleggioInGG);
+
 	}
-	
+
 }
