@@ -12,8 +12,8 @@ public class GestioneDatabase {
 		try {
 			String driver = "com.mysql.jdbc.Driver";
 			Class.forName(driver);
-			String url = "jdbc:mysql://172.16.99.208/rent";
-			con = DriverManager.getConnection(url, "corsojava", "javapassword");
+			String url = "jdbc:mysql://localhost/rental";
+			con = DriverManager.getConnection(url, "root", "");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
@@ -64,21 +64,23 @@ public class GestioneDatabase {
 	public Utente restituisciDatiUtente(String email) {
 		Utente utente;
 		String [] sUtente = new String[5];
-		int i = 0;
 		try {
 			Statement cmd = con.createStatement();
 			String query = "SELECT * FROM utente WHERE email='" + email + "'";
 			ResultSet res = cmd.executeQuery(query);
 			while (res.next()) {
 				
-				sUtente[i] = res.getString(i);
-				i++;	
-				//email, nome, cognome, pass, carta
+				sUtente[0] = res.getString("email");
+				sUtente[1] = res.getString("nome");
+				sUtente[2] = res.getString("cognome");
+				sUtente[3] = res.getString("password");
+				sUtente[4] = res.getString("carta_di_credito");
+				
 				
 			}
 			
 			utente = new Utente(sUtente[0], sUtente[1], sUtente[2], sUtente[3], sUtente[4]);
-			
+			System.out.println(sUtente[0] + sUtente[1] + sUtente[2] + sUtente[3] + sUtente[4]);
 			System.out.printf("Benvenuto %s %s", utente.getNome(), utente.getCognome());
 			return utente;
 			
