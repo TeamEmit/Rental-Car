@@ -9,6 +9,10 @@ public class Veicolo {
 	private String colore;
 	private SimpleDateFormat periodoInizio;
 	
+	public Veicolo() {
+		super();
+	}
+
 	public Veicolo(String marca, String modello, String targa, String tipologia, String colore) {
 		
 		this.marca = marca;

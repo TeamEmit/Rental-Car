@@ -87,6 +87,22 @@ public class GestioneDatabase {
 			e.printStackTrace();
 			return null;
 		}
+	
+	}
+	
+	public Veicolo noleggio(String email) { 
+		Veicolo v = new Veicolo();
+		Statement cmd;
+		try {
+			cmd = con.createStatement();
+			String query = "SELECT * FROM utente WHERE email='" + email + "'";
+			ResultSet res = cmd.executeQuery(query);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return v;
 		
 	}
 	
