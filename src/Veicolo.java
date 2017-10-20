@@ -1,3 +1,4 @@
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 
 public class Veicolo {
@@ -7,7 +8,7 @@ public class Veicolo {
 	private String targa;
 	private String tipologia;
 	private String colore;
-	private SimpleDateFormat periodoInizio;
+	private Date periodoInizio;
 	private int costoGiornaliero;
 	
 	public int getCostoGiornaliero() {
@@ -84,12 +85,12 @@ public class Veicolo {
 	}
 
 
-	public SimpleDateFormat getPeriodoInizio() {
+	public Date getPeriodoInizio() {
 		return periodoInizio;
 	}
 
 
-	public void setPeriodoInizio(SimpleDateFormat periodoInizio) {
+	public void setPeriodoInizio(Date periodoInizio) {
 		this.periodoInizio = periodoInizio;
 	}
 
