@@ -4,8 +4,10 @@ public class ControlloUtente {
 
 	// Utente utente;
 	Scanner sc = new Scanner(System.in);
+	Noleggio noleggio = new Noleggio();
 	GestioneDatabase db;
 	boolean emailEsistente = false;
+	Utente utente;
 	
 	public void signInUp() {
 		
@@ -64,11 +66,17 @@ public class ControlloUtente {
 
 		if (emailEsistente) {
 			System.out.println("Benvenuto");
-			db.restituisciDatiUtente(email); // metodo da creare
+			utente = db.restituisciDatiUtente(email);
+			noleggio.noleggio(utente);
+			
 		} else {
 			System.out.println("Email o password errate, riprova o prova a fare la registrazione.");
 			registrazione();
 		}
 
 	}
+	
+	
+	
+	
 }

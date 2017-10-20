@@ -8,7 +8,18 @@ public class Veicolo {
 	private String tipologia;
 	private String colore;
 	private SimpleDateFormat periodoInizio;
+	private int costoGiornaliero;
 	
+	public int getCostoGiornaliero() {
+		return costoGiornaliero;
+	}
+
+
+	public void setCostoGiornaliero(int costoGiornaliero) {
+		this.costoGiornaliero = costoGiornaliero;
+	}
+
+
 	public Veicolo(String marca, String modello, String targa, String tipologia, String colore) {
 		
 		this.marca = marca;

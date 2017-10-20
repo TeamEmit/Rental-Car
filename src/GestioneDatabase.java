@@ -80,8 +80,8 @@ public class GestioneDatabase {
 			}
 			
 			utente = new Utente(sUtente[0], sUtente[1], sUtente[2], sUtente[3], sUtente[4]);
-			System.out.println(sUtente[0] + sUtente[1] + sUtente[2] + sUtente[3] + sUtente[4]);
-			System.out.printf("Benvenuto %s %s", utente.getNome(), utente.getCognome());
+			//System.out.println(sUtente[0] + sUtente[1] + sUtente[2] + sUtente[3] + sUtente[4]);
+			System.out.printf("Benvenuto %s %s\n", utente.getNome(), utente.getCognome());
 			return utente;
 			
 		} catch (SQLException e) {
