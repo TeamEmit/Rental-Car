@@ -8,7 +8,6 @@ public class Noleggio {
 	ArrayList<Veicolo> listaVeicolo = new ArrayList<>();
 	Veicolo veicoloUtente;
 	Scanner sc = new Scanner(System.in);
-	SimpleDateFormat data = new SimpleDateFormat();
 	Date date = new Date();
 	public void noleggio(Utente utente) {
 
