@@ -95,14 +95,15 @@ public class GestioneDatabase {
 		Veicolo v;
 		Statement cmd;
 		String marca=null, modello=null, targa=null, tipologia=null, colore=null;
+		Date data = null;
 		try {
 			cmd = con.createStatement();
-			String query = "SELECT veicolo.colore, veicolo.Marca, veicolo.Modello, veicolo.Tipologia, veicolot.Targa \n" + 
-					"FROM `utente` \n" + 
-					"INNER JOIN utente_veicolo \n" + 
-					"	ON utente.Email=utente_veicolo.Email \n" + 
-					"INNER JOIN veicolo \n" + 
-					"    ON utente_veicolo.Targa=veicolo.Targa \n" + 
+			String query = "SELECT veicolo.colore, veicolo.Marca, veicolo.Modello, veicolo.Tipologia, veicolo.Targa, utente_veicolo.Periodo_di_Inizio " + 
+					"FROM `utente` " + 
+					"INNER JOIN utente_veicolo " + 
+					"	ON utente.Email=utente_veicolo.Email " + 
+					"INNER JOIN veicolo " + 
+					"    ON utente_veicolo.Targa=veicolo.Targa " + 
 					"WHERE utente.email = '" + email + "'";
 			ResultSet res = cmd.executeQuery(query);
 			while (res.next()) {
@@ -112,6 +113,8 @@ public class GestioneDatabase {
 				targa = res.getString("targa");
 				tipologia = res.getString("tipologia");
 				colore = res.getString("colore");
+				data = res.getDate("Periodo_di_Inizio");
+				
 					
 			}
 		} catch (SQLException e) {
@@ -120,6 +123,7 @@ public class GestioneDatabase {
 		}
 		if(marca != null && modello != null && targa != null && tipologia != null && colore != null) {
 			v= new Veicolo(marca, modello, targa, tipologia, colore);
+			v.setPeriodoInizio(data);
 			return v;
 		}
 		else
