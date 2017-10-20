@@ -1,3 +1,8 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -8,7 +13,8 @@ public class Noleggio {
 	ArrayList<Veicolo> listaVeicolo = new ArrayList<>();
 	Veicolo veicoloUtente;
 	Scanner sc = new Scanner(System.in);
-	Date date = new Date();
+	Date oggi = new Date();
+	
 	public void noleggio(Utente utente) {
 
 		System.out.println("Vuoi noleggiare? (1)\nVuoi restituire la macchina?(2)");
@@ -40,14 +46,13 @@ public class Noleggio {
 				System.out.printf("La macchina con targa %s", v.getTarga());
 			}
 				scelta = sc.nextInt() - 1;
-		} else
+		} else {
 			scelta = 0;
-		
+		}
 		
 		veicoloUtente = listaVeicolo.get(scelta);
-		date.getTime();
+	
 		
-		System.out.printf("La");
 		
 		
 		
