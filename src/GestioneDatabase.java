@@ -1,6 +1,7 @@
 
 import java.sql.*;
 
+
 public class GestioneDatabase {
 	private static Connection con;
 	
@@ -31,33 +32,58 @@ public class GestioneDatabase {
 	
 	public void inserisciUtente(String email, String nome, String cognome, String password, String cartadicredito) {
 	try {
-	Statement cmd = con.createStatement();
-	String update = "INSERT INTO utente VALUES (" + email + ", " + nome + ", " + cognome + ", " + password + ", " + cartadicredito + ")";
-	cmd.executeUpdate(update);
-	cmd.close();
+		PreparedStatement prst = con.prepareStatement("INSERT INTO utente VALUES (?, ?, ?, ?, ?)");
+		prst.setString(1, email);
+		prst.setString(2, nome);
+		prst.setString(3, cognome);
+		prst.setString(4, password);
+		prst.setString(5, cartadicredito);
+		prst.executeUpdate();
+		prst.close();
 	}
 	catch (SQLException e) {
 		e.printStackTrace();
 	}
 }
 	
-	public boolean controllaMail (String email) {
-		boolean giaRegistrato=false;
+	public String controllaPass (String email) {
+		String pass = "";
 		try {
 			Statement cmd = con.createStatement();
-			String query = "SELECT email FROM utente WHERE email='" + email + "'"; //Check
+			String query = "SELECT password FROM utente WHERE email='" + email + "'"; //Check
 			ResultSet res = cmd.executeQuery(query);
 			if(res.next())
-				giaRegistrato=true;
+				pass = res.getString("password");
+				
 			res.close();
 			cmd.close();
-			return giaRegistrato;
+			return pass;
 			
 			}
 			catch (SQLException e) {
 				e.printStackTrace();
-				return false;
+				return null;
 			}
+	}	
+		public boolean controllaMail (String email) {
+			boolean giaRegistrato = false;
+			
+			try {
+				Statement cmd = con.createStatement();
+				String query = "SELECT email FROM utente WHERE email='" + email + "'"; //Check
+				ResultSet res = cmd.executeQuery(query);
+				if(res.next())
+					giaRegistrato = true;
+					
+				res.close();
+				cmd.close();
+				return giaRegistrato;
+				
+				}
+				catch (SQLException e) {
+					e.printStackTrace();
+					return false;
+				}	
 	
 	
 	}
@@ -79,8 +105,6 @@ public class GestioneDatabase {
 			}
 			
 			utente = new Utente(sUtente[0], sUtente[1], sUtente[2], sUtente[3], sUtente[4]);
-			//System.out.println(sUtente[0] + sUtente[1] + sUtente[2] + sUtente[3] + sUtente[4]);
-			System.out.printf("Benvenuto %s %s\n", utente.getNome(), utente.getCognome());
 			return utente;
 			
 		} catch (SQLException e) {

@@ -11,12 +11,14 @@ import java.util.Scanner;
 public class Noleggio {
 
 	ArrayList<Veicolo> listaVeicolo = new ArrayList<>();
+	Utente utente;
 	Veicolo veicoloUtente;
 	Scanner sc = new Scanner(System.in);
 	Date oggi = new Date();
 
 	public void noleggio(Utente utente) {
-
+		this.utente = utente;	
+		System.out.printf("Benvenuto %s %s\n", utente.getNome(), utente.getCognome());
 		System.out.println("Vuoi noleggiare? (1)\nVuoi restituire la macchina?(2)");
 
 		int scelta = sc.nextInt();

@@ -30,8 +30,8 @@ public class ControlloUtente {
 	}
 
 	public void registrazione() {
-		boolean emailEsistente = false;
 		
+		sc.nextLine();
 		System.out.println("Inserire nome");
 		String nome = sc.nextLine();
 		System.out.println("Inserire Cognome");
@@ -43,7 +43,7 @@ public class ControlloUtente {
 		System.out.println("Inserire carta di credito");
 		String cartaCredito = sc.nextLine();
 
-		emailEsistente = db.controllaMail(email);
+		boolean emailEsistente = db.controllaMail(email);
 
 		if (emailEsistente) {
 			System.out.println("Email già esistente, provare a fare l'accesso o cambia email.");
@@ -55,23 +55,23 @@ public class ControlloUtente {
 	}
 	
 	public void accedi() {
-		boolean emailEsistente = false;
+		String passwordCheck = "";
 		sc.nextLine();
 		System.out.println("Inserire e-mail");
 		String email = sc.nextLine();
 		System.out.println("Inserire password (Massimo 8 caratteri)");
 		String password = sc.nextLine();
 
-		emailEsistente = db.controllaMail(email);
+		passwordCheck = db.controllaPass(email);
 
-		if (emailEsistente) {
-			System.out.println("Benvenuto");
+		if (passwordCheck.equals(password)) {
+			//System.out.println("Benvenuto");
 			utente = db.restituisciDatiUtente(email);
 			noleggio.noleggio(utente);
 			
 		} else {
 			System.out.println("Email o password errate, riprova o prova a fare la registrazione.");
-			registrazione();
+			signInUp();
 		}
 
 	}
