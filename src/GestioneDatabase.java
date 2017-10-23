@@ -61,6 +61,27 @@ public class GestioneDatabase {
 	
 	
 	}
+	
+	public String controllaPass (String email) {
+		String pass = "";
+		try {
+			Statement cmd = con.createStatement();
+			String query = "SELECT password FROM utente WHERE email='" + email + "'"; //Check
+			ResultSet res = cmd.executeQuery(query);
+			if(res.next())
+				pass = res.getString("password");
+			res.close();
+			cmd.close();
+			return pass;
+			
+			}
+			catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			}
+	
+	
+	}
 	public Utente restituisciDatiUtente(String email) {
 		Utente utente;
 		String [] sUtente = new String[5];
