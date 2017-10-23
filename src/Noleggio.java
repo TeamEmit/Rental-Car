@@ -10,7 +10,8 @@ import java.util.Scanner;
 
 public class Noleggio {
 
-	ArrayList<Veicolo> listaVeicolo = new ArrayList<>();
+	//ArrayList<Veicolo> listaVeicolo = new ArrayList<>();
+	GestioneDatabase gd;
 	Utente utente;
 	Veicolo veicoloUtente;
 	Scanner sc = new Scanner(System.in);
@@ -20,7 +21,13 @@ public class Noleggio {
 		this.utente = utente;	
 		System.out.printf("Benvenuto %s %s\n", utente.getNome(), utente.getCognome());
 		System.out.println("Vuoi noleggiare? (1)\nVuoi restituire la macchina?(2)");
-
+		System.out.println("Prima del veicolo");
+		veicoloUtente = gd.noleggioVeicolo(this.utente.getEmail());
+		System.out.println("Dopo veicolo");
+		if (veicoloUtente != null) {
+			System.out.printf("Il veicolo in suo possesso ha la targa: %s", veicoloUtente.getTarga());
+		}
+		
 		int scelta = sc.nextInt();
 
 		switch (scelta) {
@@ -39,8 +46,6 @@ public class Noleggio {
 	}
 
 	public void restituisci() {
-		int scelta = 0;
-
 		/*if (listaVeicolo.size() > 1) {
 			System.out.println("quale veicolo vuoi restituire?");
 			for (Veicolo v : listaVeicolo) {
@@ -51,7 +56,8 @@ public class Noleggio {
 			scelta = 0;
 		}
 */
-		veicoloUtente = listaVeicolo.get(scelta);
+		//veicoloUtente = listaVeicolo.get(0);
+		//veicoloUtente = gd.noleggioVeicolo(utente.getEmail());
 		Date periodoInizio = veicoloUtente.getPeriodoInizio();
 		long durataNoleggio = oggi.getTime() - periodoInizio.getTime();
 		long durataNoleggioInGG = durataNoleggio / (1000 * 60 * 60 * 24);

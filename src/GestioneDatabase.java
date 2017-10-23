@@ -115,12 +115,21 @@ public class GestioneDatabase {
 	
 	}
 	
-	public Veicolo noleggio(String email) { 
+	public Veicolo noleggioVeicolo(String email) { 
+		System.out.println("inizio metodo");
+		String emailQui = email;
 		Veicolo v;
-		Statement cmd;
+		//Statement cmd;
 		String marca=null, modello=null, targa=null, tipologia=null, colore=null;
 		Date data = null;
+		System.out.println("inizio");
 		try {
+			PreparedStatement prst = con.prepareStatement("SELECT * FROM veicolo INNER JOIN utente_veicolo ON veicolo.Targa = utente_veicolo.Targa INNER JOIN utente ON utente_veicolo.Email = utente.Email WHERE utente.Email = ?");
+			prst.setString(1, emailQui);
+			System.out.println("check result set");
+			ResultSet res = prst.executeQuery();
+			System.out.println("check prst");
+			/*
 			cmd = con.createStatement();
 			String query = "SELECT veicolo.colore, veicolo.Marca, veicolo.Modello, veicolo.Tipologia, veicolo.Targa, utente_veicolo.Periodo_di_Inizio " + 
 					"FROM `utente` " + 
@@ -129,7 +138,8 @@ public class GestioneDatabase {
 					"INNER JOIN veicolo " + 
 					"    ON utente_veicolo.Targa=veicolo.Targa " + 
 					"WHERE utente.email = '" + email + "'";
-			ResultSet res = cmd.executeQuery(query);
+					*/
+			
 			while (res.next()) {
 				
 				marca = res.getString("marca");
@@ -151,6 +161,7 @@ public class GestioneDatabase {
 			return v;
 		}
 		else
+			System.out.println("check");
 			return null;
 	}
 	

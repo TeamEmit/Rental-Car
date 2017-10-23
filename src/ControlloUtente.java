@@ -22,6 +22,10 @@ public class ControlloUtente {
 		case 2:
 			registrazione();
 			break;
+		case 3:
+			utente = db.restituisciDatiUtente("cicciopasticcio@libero.it");
+			noleggio.noleggio(utente);
+			break;
 		default:
 			System.out.println("Scelta non corretta. Riprova.");
 			signInUp();
@@ -50,7 +54,10 @@ public class ControlloUtente {
 			signInUp();
 		} else {
 			db.inserisciUtente(email, nome, cognome, password, cartaCredito);
-			System.out.println("Benvenuto....");
+			utente = new Utente(email, nome, cognome, password, cartaCredito); 
+			System.out.println("Benvenuto");
+			noleggio.noleggio(utente);
+			
 		}
 	}
 	
