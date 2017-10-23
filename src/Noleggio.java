@@ -26,7 +26,7 @@ public class Noleggio {
 			// accedi();
 			break;
 		case 2:
-			// restituisci();
+			restituisci();
 			break;
 		default:
 			System.out.println("Scelta non corretta. Riprova.");
@@ -37,9 +37,9 @@ public class Noleggio {
 	}
 
 	public void restituisci() {
-		int scelta;
+		int scelta = 0;
 
-		if (listaVeicolo.size() > 1) {
+		/*if (listaVeicolo.size() > 1) {
 			System.out.println("quale veicolo vuoi restituire?");
 			for (Veicolo v : listaVeicolo) {
 				System.out.printf("La macchina con targa %s", v.getTarga());
@@ -48,14 +48,16 @@ public class Noleggio {
 		} else {
 			scelta = 0;
 		}
-
+*/
 		veicoloUtente = listaVeicolo.get(scelta);
 		Date periodoInizio = veicoloUtente.getPeriodoInizio();
 		long durataNoleggio = oggi.getTime() - periodoInizio.getTime();
 		long durataNoleggioInGG = durataNoleggio / (1000 * 60 * 60 * 24);
 
 		System.out.println(durataNoleggioInGG);
-
+		
+		double costoTotale = veicoloUtente.getCostoGiornaliero() * durataNoleggioInGG;
+		System.out.println("L'importo da pagare è: "+ costoTotale + " euro.");
 	}
 
 }
