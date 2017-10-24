@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class Noleggio {
 
-	//ArrayList<Veicolo> listaVeicolo = new ArrayList<>();
+	// ArrayList<Veicolo> listaVeicolo = new ArrayList<>();
 	GestioneDatabase gd = new GestioneDatabase();
 	private Utente utente;
 	Veicolo veicoloUtente;
@@ -18,7 +18,7 @@ public class Noleggio {
 	Date oggi = new Date();
 
 	public void noleggio(Utente utente) {
-		this.utente = utente;	
+		this.utente = utente;
 		System.out.printf("Benvenuto %s %s\n", utente.getNome(), utente.getCognome());
 		veicoloUtente = gd.noleggioVeicolo(this.utente.getEmail());
 		if (veicoloUtente != null) {
@@ -36,33 +36,31 @@ public class Noleggio {
 			break;
 		default:
 			System.out.println("Scelta non corretta. Riprova.");
-			// signInUp();
+			noleggio(utente);
 			break;
 		}
 
 	}
 
 	public void restituisci() {
-		/*if (listaVeicolo.size() > 1) {
-			System.out.println("quale veicolo vuoi restituire?");
-			for (Veicolo v : listaVeicolo) {
-				System.out.printf("La macchina con targa %s", v.getTarga());
-			}
-			scelta = sc.nextInt() - 1;
-		} else {
-			scelta = 0;
-		}
-*/
-		//veicoloUtente = listaVeicolo.get(0);
-		//veicoloUtente = gd.noleggioVeicolo(utente.getEmail());
+		/*
+		 * if (listaVeicolo.size() > 1) {
+		 * System.out.println("quale veicolo vuoi restituire?"); for (Veicolo v :
+		 * listaVeicolo) { System.out.printf("La macchina con targa %s", v.getTarga());
+		 * } scelta = sc.nextInt() - 1; } else { scelta = 0; }
+		 * 
+		 * veicoloUtente = listaVeicolo.get(0); veicoloUtente =
+		 * gd.noleggioVeicolo(utente.getEmail());
+		 */
 		Date periodoInizio = veicoloUtente.getPeriodoInizio();
 		long durataNoleggio = oggi.getTime() - periodoInizio.getTime();
 		long durataNoleggioInGG = durataNoleggio / (1000 * 60 * 60 * 24);
 
 		System.out.println(durataNoleggioInGG);
-		
+		System.out.println(veicoloUtente.getCostoGiornaliero());
+
 		double costoTotale = veicoloUtente.getCostoGiornaliero() * durataNoleggioInGG;
-		System.out.println("L'importo da pagare è: "+ costoTotale + " euro.");
+		System.out.println("L'importo da pagare è: " + costoTotale + " euro.");
 	}
 
 }

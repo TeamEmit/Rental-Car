@@ -2,15 +2,14 @@ import java.util.Scanner;
 
 public class ControlloUtente {
 
-	// Utente utente;
 	Scanner sc = new Scanner(System.in);
 	Noleggio noleggio = new Noleggio();
 	GestioneDatabase db;
 	boolean emailEsistente = false;
 	Utente utente;
-	
+
 	public void signInUp() {
-		
+
 		db = new GestioneDatabase();
 		System.out.println("Sei già registrato?\nSeleziona:\n1 per eseguire l'accesso\n2 per la registrazione");
 		int scelta = sc.nextInt();
@@ -34,7 +33,7 @@ public class ControlloUtente {
 	}
 
 	public void registrazione() {
-		
+
 		sc.nextLine();
 		System.out.println("Inserire nome");
 		String nome = sc.nextLine();
@@ -54,13 +53,13 @@ public class ControlloUtente {
 			signInUp();
 		} else {
 			db.inserisciUtente(email, nome, cognome, password, cartaCredito);
-			utente = new Utente(email, nome, cognome, password, cartaCredito); 
+			utente = new Utente(email, nome, cognome, password, cartaCredito);
 			System.out.println("Benvenuto");
 			noleggio.noleggio(utente);
-			
+
 		}
 	}
-	
+
 	public void accedi() {
 		String passwordCheck = "";
 		sc.nextLine();
@@ -72,18 +71,14 @@ public class ControlloUtente {
 		passwordCheck = db.controllaPass(email);
 
 		if (passwordCheck.equals(password)) {
-			//System.out.println("Benvenuto");
 			utente = db.restituisciDatiUtente(email);
 			noleggio.noleggio(utente);
-			
+
 		} else {
 			System.out.println("Email o password errate, riprova o prova a fare la registrazione.");
 			signInUp();
 		}
 
 	}
-	
-	
-	
-	
+
 }
