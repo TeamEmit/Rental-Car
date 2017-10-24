@@ -12,7 +12,7 @@ public class ControlloUtente {
 	public void signInUp() {
 		
 		db = new GestioneDatabase();
-		System.out.println("Sei già registrato?\nSeleziona 1 per eseguire l'accesso, \n 2 per la registrazione");
+		System.out.println("Sei già registrato?\nSeleziona:\n1 per eseguire l'accesso\n2 per la registrazione");
 		int scelta = sc.nextInt();
 
 		switch (scelta) {
