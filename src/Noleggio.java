@@ -34,6 +34,7 @@ public class Noleggio {
 		case 2:
 			restituisci();
 			break;
+		case 3: ;
 		default:
 			System.out.println("Scelta non corretta. Riprova.");
 			noleggio(utente);
