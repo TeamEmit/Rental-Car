@@ -150,7 +150,7 @@ public class GestioneDatabase {
 	
 	public void cancellaNoleggio(String email) {
 		try {
-			PreparedStatement pst = con.prepareStatement("DELETE FROM utente_veicolo WHERE email = '?'");
+			PreparedStatement pst = con.prepareStatement("DELETE FROM utente_veicolo WHERE email = ?");
 			pst.setString(1, email);
 			pst.executeUpdate();
 			pst.close();
@@ -179,7 +179,7 @@ public class GestioneDatabase {
 		Date data = null;
 		
 		try {
-			PreparedStatement pst = con.prepareStatement("SELECT * FROM veicolo");
+			PreparedStatement pst = con.prepareStatement("SELECT veicolo.marca, veicolo.modello, veicolo.targa, veicolo.tipologia, veicolo.colore, veicolo.costo_giornaliero FROM veicolo LEFT OUTER JOIN utente_veicolo ON utente_veicolo.targa = veicolo.targa WHERE utente_veicolo.email IS NULL");
 			ResultSet res = pst.executeQuery();
 			
 			while (res.next()) {

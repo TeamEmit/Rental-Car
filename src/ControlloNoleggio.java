@@ -59,9 +59,8 @@ public class ControlloNoleggio {
 		long durataNoleggioInGG = durataNoleggio / (1000 * 60 * 60 * 24);
 
 		System.out.println(durataNoleggioInGG);
-		System.out.println(veicoloUtente.getCostoGiornaliero());
 
-		double costoTotale = veicoloUtente.getCostoGiornaliero() * durataNoleggioInGG;
+		double costoTotale = veicoloUtente.getCostoGiornaliero() * durataNoleggioInGG + 5;
 		System.out.println("L'importo da pagare è: " + costoTotale + " euro.");
 		gd.cancellaNoleggio(utente.getEmail());
 		controlloNoleggio(utente);
@@ -118,7 +117,7 @@ public class ControlloNoleggio {
 		int vScelto = sc.nextInt()-1;
 		
 		gd.creaRecordNoleggio(utente.getEmail(), listaVeicoloFiltrata.get(vScelto).getTarga());
-		System.out.println("Veicolo scelto numero" + vScelto);
+		//controlloNoleggio(utente);
 	}
 
 }
