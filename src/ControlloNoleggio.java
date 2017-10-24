@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class ControlloNoleggio {
 
-	ArrayList<Veicolo> listaVeicolo = new ArrayList<>();
+	ArrayList<Veicolo> listaVeicolo;
 	GestioneDatabase gd = new GestioneDatabase();
 	private Utente utente;
 	Veicolo veicoloUtente;
@@ -19,14 +19,17 @@ public class ControlloNoleggio {
 
 	public void controlloNoleggio(Utente utente) {
 		this.utente = utente;
+		int scelta = 0;
 		System.out.printf("Benvenuto %s %s\n", utente.getNome(), utente.getCognome());
 		veicoloUtente = gd.restituisciVeicoloNoleggiato(this.utente.getEmail());
 		if (veicoloUtente != null) {
 			System.out.printf("Il veicolo in suo possesso ha la targa: %s\n", veicoloUtente.getTarga());
+			System.out.println("Per restituire la macchina premere 2");
+			scelta = sc.nextInt();
+		} else {
+		System.out.println("Non hai macchine, vuoi noleggiarne una?\nPer continuare premi 1?");
+		scelta = sc.nextInt();
 		}
-		System.out.println("Vuoi noleggiare? (1)\nVuoi restituire la macchina?(2)");
-		int scelta = sc.nextInt();
-
 		switch (scelta) {
 		case 1:
 			noleggia();
@@ -45,15 +48,7 @@ public class ControlloNoleggio {
 	}
 
 	public void restituisci() {
-		/*
-		 * if (listaVeicolo.size() > 1) {
-		 * System.out.println("quale veicolo vuoi restituire?"); for (Veicolo v :
-		 * listaVeicolo) { System.out.printf("La macchina con targa %s", v.getTarga());
-		 * } scelta = sc.nextInt() - 1; } else { scelta = 0; }
-		 * 
-		 * veicoloUtente = listaVeicolo.get(0); veicoloUtente =
-		 * gd.noleggioVeicolo(utente.getEmail());
-		 */
+
 		Date periodoInizio = veicoloUtente.getPeriodoInizio();
 		long durataNoleggio = oggi.getTime() - periodoInizio.getTime();
 		long durataNoleggioInGG = durataNoleggio / (1000 * 60 * 60 * 24);
@@ -67,6 +62,7 @@ public class ControlloNoleggio {
 	}
 
 	public void noleggia() {
+		listaVeicolo = new ArrayList<>();
 		ArrayList<Veicolo> listaVeicoloFiltrata = new ArrayList<>();
 		int counter = 1;
 		listaVeicolo = gd.restituisciListaVeicoli();
@@ -117,7 +113,11 @@ public class ControlloNoleggio {
 		int vScelto = sc.nextInt()-1;
 		
 		gd.creaRecordNoleggio(utente.getEmail(), listaVeicoloFiltrata.get(vScelto).getTarga());
-		//controlloNoleggio(utente);
+		System.out.println("Veicolo selezionato noleggiato\n\n");
+		
+		listaVeicoloFiltrata = null;
+		listaVeicolo = null;
+		controlloNoleggio(utente);
 	}
 
 }
