@@ -54,7 +54,6 @@ public class GestioneDatabase {
 			ResultSet res = cmd.executeQuery(query);
 			if(res.next())
 				pass = res.getString("password");
-				
 			res.close();
 			cmd.close();
 			return pass;
@@ -64,8 +63,10 @@ public class GestioneDatabase {
 				e.printStackTrace();
 				return null;
 			}
-	}	
-		public boolean controllaMail (String email) {
+	}
+
+
+	public boolean controllaMail(String email) {
 			boolean giaRegistrato = false;
 			
 			try {
