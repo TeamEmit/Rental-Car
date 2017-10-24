@@ -20,7 +20,7 @@ public class Noleggio {
 	public void noleggio(Utente utente) {
 		this.utente = utente;
 		System.out.printf("Benvenuto %s %s\n", utente.getNome(), utente.getCognome());
-		veicoloUtente = gd.noleggioVeicolo(this.utente.getEmail());
+		veicoloUtente = gd.restituisciVeicoloNoleggiato(this.utente.getEmail());
 		if (veicoloUtente != null) {
 			System.out.printf("Il veicolo in suo possesso ha la targa: %s\n", veicoloUtente.getTarga());
 		}

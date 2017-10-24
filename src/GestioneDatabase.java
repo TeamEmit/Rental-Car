@@ -110,7 +110,7 @@ public class GestioneDatabase {
 
 	}
 
-	public Veicolo noleggioVeicolo(String email) {
+	public Veicolo restituisciVeicoloNoleggiato(String email) {
 		Veicolo v;
 		Statement cmd;
 		String marca = null, modello = null, targa = null, tipologia = null, colore = null;
@@ -146,5 +146,33 @@ public class GestioneDatabase {
 		} else
 			return null;
 	}
+	
+	public void cancellaNoleggio(String email) {
+		try {
+			PreparedStatement pst = con.prepareStatement("DELETE FROM utente_veicolo WHERE email = '?'");
+			pst.setString(1, email);
+			pst.executeUpdate();
+			pst.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public void creaRecordNoleggio(String email, String targa) {
+		PreparedStatement pst;
+		try {
+			pst = con.prepareStatement("INSERT INTO utente_veicolo (email, targa) VALUES (?, ?)");
+			pst.setString(1, email);
+			pst.setString(2, targa);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+	
+		
 
 }
