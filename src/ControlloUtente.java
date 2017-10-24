@@ -41,7 +41,7 @@ public class ControlloUtente {
 		String cognome = sc.nextLine();
 		System.out.println("Inserire e-mail");
 		String email = sc.nextLine();
-		System.out.println("Inserire password (Massimo 8 caratteri)");
+		System.out.println("Inserire password");
 		String password = sc.nextLine();
 		System.out.println("Inserire carta di credito");
 		String cartaCredito = sc.nextLine();
@@ -54,7 +54,6 @@ public class ControlloUtente {
 		} else {
 			db.inserisciUtente(email, nome, cognome, password, cartaCredito);
 			utente = new Utente(email, nome, cognome, password, cartaCredito);
-			System.out.println("Benvenuto");
 			noleggio.controlloNoleggio(utente);
 
 		}
@@ -65,7 +64,7 @@ public class ControlloUtente {
 		sc.nextLine();
 		System.out.println("Inserire e-mail");
 		String email = sc.nextLine();
-		System.out.println("Inserire password (Massimo 8 caratteri)");
+		System.out.println("Inserire password");
 		String password = sc.nextLine();
 
 		passwordCheck = db.controllaPass(email);

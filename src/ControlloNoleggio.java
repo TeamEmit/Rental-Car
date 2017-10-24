@@ -27,7 +27,7 @@ public class ControlloNoleggio {
 			System.out.println("Per restituire la macchina premere 2");
 			scelta = sc.nextInt();
 		} else {
-		System.out.println("Non hai macchine, vuoi noleggiarne una?\nPer continuare premi 1?");
+		System.out.println("Non hai macchine, vuoi noleggiarne una?\nPer continuare premi 1");
 		scelta = sc.nextInt();
 		}
 		switch (scelta) {
