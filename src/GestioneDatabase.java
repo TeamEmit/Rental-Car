@@ -1,9 +1,10 @@
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class GestioneDatabase {
 	private static Connection con;
-
+	ArrayList<Veicolo> listaVeicoli = new ArrayList<>();
 	public GestioneDatabase() {
 		connettiDatabase();
 	}
@@ -164,6 +165,7 @@ public class GestioneDatabase {
 			pst = con.prepareStatement("INSERT INTO utente_veicolo (email, targa) VALUES (?, ?)");
 			pst.setString(1, email);
 			pst.setString(2, targa);
+			pst.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -171,7 +173,39 @@ public class GestioneDatabase {
 		
 	}
 	
-	
+	public ArrayList<Veicolo> restituisciListaVeicoli(){
+		
+		
+		Date data = null;
+		
+		try {
+			PreparedStatement pst = con.prepareStatement("SELECT * FROM veicolo");
+			ResultSet res = pst.executeQuery();
+			
+			while (res.next()) {
+				
+				Veicolo v = new Veicolo();
+				v.setMarca(res.getString("marca"));
+				v.setModello(res.getString("modello"));
+				v.setTarga(res.getString("targa"));
+				v.setTipologia(res.getString("tipologia"));
+				v.setColore(res.getString("colore"));
+				//v.setPeriodoInizio(res.getDate("Periodo_di_Inizio"));
+				v.setCostoGiornaliero(res.getInt("Costo_giornaliero"));
+				
+				listaVeicoli.add(v);
+					
+			}
+				
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return listaVeicoli;
+	}
 	
 		
 

@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class ControlloUtente {
 
 	Scanner sc = new Scanner(System.in);
-	Noleggio noleggio = new Noleggio();
+	ControlloNoleggio noleggio = new ControlloNoleggio();
 	GestioneDatabase db;
 	boolean emailEsistente = false;
 	Utente utente;
@@ -23,7 +23,7 @@ public class ControlloUtente {
 			break;
 		case 3:
 			utente = db.restituisciDatiUtente("cicciopasticcio@libero.it");
-			noleggio.noleggio(utente);
+			noleggio.controlloNoleggio(utente);
 			break;
 		default:
 			System.out.println("Scelta non corretta. Riprova.");
@@ -55,7 +55,7 @@ public class ControlloUtente {
 			db.inserisciUtente(email, nome, cognome, password, cartaCredito);
 			utente = new Utente(email, nome, cognome, password, cartaCredito);
 			System.out.println("Benvenuto");
-			noleggio.noleggio(utente);
+			noleggio.controlloNoleggio(utente);
 
 		}
 	}
@@ -72,7 +72,7 @@ public class ControlloUtente {
 
 		if (passwordCheck.equals(password)) {
 			utente = db.restituisciDatiUtente(email);
-			noleggio.noleggio(utente);
+			noleggio.controlloNoleggio(utente);
 
 		} else {
 			System.out.println("Email o password errate, riprova o prova a fare la registrazione.");
