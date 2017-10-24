@@ -1,7 +1,6 @@
 
 import java.sql.*;
 
-
 public class GestioneDatabase {
 	private static Connection con;
 	
@@ -32,19 +31,36 @@ public class GestioneDatabase {
 	
 	public void inserisciUtente(String email, String nome, String cognome, String password, String cartadicredito) {
 	try {
-		PreparedStatement prst = con.prepareStatement("INSERT INTO utente VALUES (?, ?, ?, ?, ?)");
-		prst.setString(1, email);
-		prst.setString(2, nome);
-		prst.setString(3, cognome);
-		prst.setString(4, password);
-		prst.setString(5, cartadicredito);
-		prst.executeUpdate();
-		prst.close();
+	Statement cmd = con.createStatement();
+	String update = "INSERT INTO utente VALUES (" + email + ", " + nome + ", " + cognome + ", " + password + ", " + cartadicredito + ")";
+	cmd.executeUpdate(update);
+	cmd.close();
 	}
 	catch (SQLException e) {
 		e.printStackTrace();
 	}
 }
+	
+	public boolean controllaMail (String email) {
+		boolean giaRegistrato=false;
+		try {
+			Statement cmd = con.createStatement();
+			String query = "SELECT email FROM utente WHERE email='" + email + "'"; //Check
+			ResultSet res = cmd.executeQuery(query);
+			if(res.next())
+				giaRegistrato=true;
+			res.close();
+			cmd.close();
+			return giaRegistrato;
+			
+			}
+			catch (SQLException e) {
+				e.printStackTrace();
+				return false;
+			}
+	
+	
+	}
 	
 	public String controllaPass (String email) {
 		String pass = "";
@@ -63,28 +79,6 @@ public class GestioneDatabase {
 				e.printStackTrace();
 				return null;
 			}
-	}
-
-
-	public boolean controllaMail(String email) {
-			boolean giaRegistrato = false;
-			
-			try {
-				Statement cmd = con.createStatement();
-				String query = "SELECT email FROM utente WHERE email='" + email + "'"; //Check
-				ResultSet res = cmd.executeQuery(query);
-				if(res.next())
-					giaRegistrato = true;
-					
-				res.close();
-				cmd.close();
-				return giaRegistrato;
-				
-				}
-				catch (SQLException e) {
-					e.printStackTrace();
-					return false;
-				}	
 	
 	
 	}
@@ -106,6 +100,8 @@ public class GestioneDatabase {
 			}
 			
 			utente = new Utente(sUtente[0], sUtente[1], sUtente[2], sUtente[3], sUtente[4]);
+			//System.out.println(sUtente[0] + sUtente[1] + sUtente[2] + sUtente[3] + sUtente[4]);
+			System.out.printf("Benvenuto %s %s\n", utente.getNome(), utente.getCognome());
 			return utente;
 			
 		} catch (SQLException e) {
@@ -116,17 +112,12 @@ public class GestioneDatabase {
 	
 	}
 	
-	public Veicolo noleggioVeicolo(String email) { 
-		String emailQui = email;
+	public Veicolo noleggio(String email) { 
 		Veicolo v;
-		//Statement cmd;
+		Statement cmd;
 		String marca=null, modello=null, targa=null, tipologia=null, colore=null;
 		Date data = null;
 		try {
-			PreparedStatement prst = con.prepareStatement("SELECT * FROM veicolo INNER JOIN utente_veicolo ON veicolo.Targa = utente_veicolo.Targa INNER JOIN utente ON utente_veicolo.Email = utente.Email WHERE utente.Email = ?");
-			prst.setString(1, emailQui);
-			ResultSet res = prst.executeQuery();
-			/*
 			cmd = con.createStatement();
 			String query = "SELECT veicolo.colore, veicolo.Marca, veicolo.Modello, veicolo.Tipologia, veicolo.Targa, utente_veicolo.Periodo_di_Inizio " + 
 					"FROM `utente` " + 
@@ -135,8 +126,7 @@ public class GestioneDatabase {
 					"INNER JOIN veicolo " + 
 					"    ON utente_veicolo.Targa=veicolo.Targa " + 
 					"WHERE utente.email = '" + email + "'";
-					*/
-			
+			ResultSet res = cmd.executeQuery(query);
 			while (res.next()) {
 				
 				marca = res.getString("marca");
@@ -158,7 +148,6 @@ public class GestioneDatabase {
 			return v;
 		}
 		else
-			System.out.println("check");
 			return null;
 	}
 	
